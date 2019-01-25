@@ -671,8 +671,9 @@ export default class JiraApi {
    */
   getUsersIssues(username, open) {
     const openJql = open ? ' AND status in (Open, \'In Progress\', Reopened)' : '';
+    const escapedUsername = username.replace('+', '\\u002B').replace('@', '\\u0040');
     return this.searchJira(
-      `assignee = ${username.replace('@', '\\u0040')}${openJql}`, {});
+      `assignee = ${escapedUsername}${openJql}`, {});
   }
 
   /** Add issue to Jira
